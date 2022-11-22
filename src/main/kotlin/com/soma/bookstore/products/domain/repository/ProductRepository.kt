@@ -17,6 +17,8 @@ interface ProductRepository {
     fun findByCategory(category: Category): List<Product>
 
     fun delete(id: String)
-
+    fun existsById(id: String): Boolean
     fun findAll(): List<Product>
+
+    fun update(product: Product): Product
 }
