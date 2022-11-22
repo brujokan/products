@@ -13,4 +13,7 @@ interface CategoryRepository {
     fun delete(id: String)
 
     fun findAll(): List<Category>
+    fun existsById(id: String): Boolean
+
+    fun update(category: Category): Category
 }

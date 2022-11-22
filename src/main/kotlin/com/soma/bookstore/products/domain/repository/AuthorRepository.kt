@@ -13,4 +13,7 @@ interface AuthorRepository {
     fun delete(id: String)
 
     fun findAll(): List<Author>
+    fun existsById(id: String): Boolean
+
+    fun update(author: Author): Author
 }
