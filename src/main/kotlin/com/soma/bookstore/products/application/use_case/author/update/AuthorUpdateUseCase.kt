@@ -10,16 +10,16 @@ class AuthorUpdateUseCase(
     private val repository: AuthorRepository
 ) {
 
-    fun update(author: Author): Author {
-        if (repository.existsById(author.id!!)) {
-            return repository.save(
+    fun update(author: Author, id: String): Author {
+        if (repository.existsById(id)) {
+            return repository.update(
                 Author(
-                    id = author.id,
+                    id = id,
                     name = author.name,
                     description = author.description
                 )
             )
         }
-        throw NotFoundException("Author with id ${author.id} not found, cannot update")
+        throw NotFoundException("Author with id $id not found, cannot update")
     }
 }

@@ -10,9 +10,14 @@ class CategoryUpdateUseCase(
     private val repository: CategoryRepository
 ) {
 
-    fun update(category: Category): Category {
-        if (repository.existsById(category.id!!)) {
-            return repository.update(category)
+    fun update(category: Category, id: String): Category {
+        if (repository.existsById(id)) {
+            return repository.update(
+                Category(
+                    id = id,
+                    name = category.name
+                )
+            )
         } else throw NotFoundException("Category with id ${category.id} not found, cannot update")
     }
 }

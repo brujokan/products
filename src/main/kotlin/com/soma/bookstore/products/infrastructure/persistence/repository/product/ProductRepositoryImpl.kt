@@ -67,6 +67,8 @@ class ProductRepositoryImpl(
         update.set("language", product.language)
         update.set("idNumber", product.idNumber)
         update.set("publicationDate", product.publicationDate)
+        update.set("author", product.author)
+        update.set("category", product.category)
 
         return modelMapper.map(
             mongoTemplate.findAndModify(query, update, ProductCollection::class.java)!!

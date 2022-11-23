@@ -10,10 +10,21 @@ class ProductUpdateUseCase(
     private val repository: ProductRepository
 ) {
 
-    fun update(product: Product): Product {
-        if (repository.existsById(product.id!!)) {
-            return repository.update(product)
+    fun update(product: Product, id: String): Product {
+        if (repository.existsById(id)) {
+            return repository.update(
+                Product(
+                    id = id,
+                    title = product.title,
+                    description = product.description,
+                    language = product.language,
+                    idNumber = product.idNumber,
+                    publicationDate = product.publicationDate,
+                    author = product.author,
+                    category = product.category
+                )
+            )
         }
-        throw NotFoundException("Product with id ${product.id} not found, cannot update")
+        throw NotFoundException("Product with id $id not found, cannot update")
     }
 }
