@@ -1,13 +1,19 @@
 package com.soma.bookstore.products.infrastructure.handler.product.mapper
 
 import com.soma.bookstore.products.domain.mapper.Mapper
+import com.soma.bookstore.products.domain.model.Author
+import com.soma.bookstore.products.domain.model.Category
 import com.soma.bookstore.products.domain.model.Product
-import com.soma.bookstore.products.infrastructure.handler.product.request.ProductCreateRequest
+import com.soma.bookstore.products.infrastructure.handler.author.response.AuthorResponse
+import com.soma.bookstore.products.infrastructure.handler.category.response.CategoryResponse
 import com.soma.bookstore.products.infrastructure.handler.product.response.ProductResponse
 import org.springframework.stereotype.Component
 
 @Component
-class ProductResponseMapper: Mapper<ProductResponse, Product> {
+class ProductResponseMapper(
+    private val authorMapper: Mapper<AuthorResponse, Author>,
+    private val categoryMapper: Mapper<CategoryResponse, Category>
+): Mapper<ProductResponse, Product> {
 
     override fun map(input: Product): ProductResponse {
         return ProductResponse(
@@ -15,10 +21,10 @@ class ProductResponseMapper: Mapper<ProductResponse, Product> {
             title = input.title,
             description = input.description,
             language = input.language,
-            idNumber = input.description,
+            idNumber = input.idNumber,
             publicationDate = input.publicationDate,
-            author = input.author!!,
-            category = input.category!!
+            author = authorMapper.map(input.author!!),
+            category = categoryMapper.map(input.category!!)
         )
     }
 }
